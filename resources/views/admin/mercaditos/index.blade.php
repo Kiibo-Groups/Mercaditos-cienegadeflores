@@ -194,7 +194,7 @@
             </div>
             <div class="modal-body" style="overflow: hidden;">
                 <div class="gift-card" style="background-image: url('https://mercaditos-cienegadeflores.com/upload/users/group1.png');margin: 0 auto; max-width: 650px; position: relative; color:#fff;margin: auto;text-align: center;width: 350px;height: 600px;">
-                    <img src="https://mercaditos-cienegadeflores.com/assets/images/card_mercados/logo.png" width="200" height="auto">
+                    <img src="https://mercaditos-cienegadeflores.com/assets/images/card_mercados/logo2.png" width="200" height="auto">
                     <div>
                         <h3 class="d-inline" style="color:#000;">DIRECCION DE COMERCIO</h3>
                         <div id="name-profile" style="width: 180px;height: 180px;border-radius: 2003px;border: 4px solid #fff;background-size: cover;background-position: center top;margin: 40px auto;z-index: 2003 !important;position: relative;"></div>
