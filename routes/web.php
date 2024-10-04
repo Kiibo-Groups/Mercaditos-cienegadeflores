@@ -78,6 +78,7 @@ Route::prefix(env('user'))->namespace('User')->group(static function() {
         Route::get('mercaditos/status/{id}',[App\Http\Controllers\Admin\MercadosController::class, 'status']);
         Route::get('ImportMercados',[App\Http\Controllers\Admin\MercadosController::class, 'import'])->name('ImportMercados');
         Route::post('mercaditos/import',[App\Http\Controllers\Admin\MercadosController::class, '_import']);
+        Route::get('ExportMercados',[App\Http\Controllers\Admin\MercadosController::class, 'export'])->name('ExportMercados');
     
         /*
         |------------------------------

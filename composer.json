@@ -16,6 +16,7 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.29",
         "simplesoftwareio/simple-qrcode": "~2",
         "webpatser/laravel-uuid": "^4.0"
     },

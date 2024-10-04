@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\Exports\OferentExport;
+
 use App\Models\Mercaditos;  
 use App\Models\Colonies;  
 use App\Models\Admin;
@@ -16,13 +18,15 @@ use IMS;
 use Excel;
 
 use QrCode;
+
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
 class MercadosController extends Controller
 {
     public $folder  = "admin/mercaditos.";
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function index()
     {
@@ -39,8 +43,7 @@ class MercadosController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function create()
     {
@@ -53,9 +56,7 @@ class MercadosController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 
      */
     public function store(Request $request)
     {
@@ -113,8 +114,7 @@ class MercadosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id 
      */
     public function edit($id)
     {
@@ -129,8 +129,7 @@ class MercadosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id 
      */
     public function update(Request $request, $id)
     {
@@ -226,25 +225,74 @@ class MercadosController extends Controller
     public function _import(Request $request)
 	{
         $data = $request->all();
+        
+        $reader = new Xlsx();
+        $spreadsheet = $reader->load($data['file']);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $drawings = $sheet->getDrawingCollection();
        
+        $pic_profile = "upload/users/profile/";
+        $pic_front   = "upload/users/credentials/";
+        $pic_back    = "upload/users/credentials/";
+        
+        $row_A = [];
+        $row_B = [];
+        $row_C = [];
+
+        foreach ($drawings as $drawing) {
+            $splitCoords = str_split($drawing->getCoordinates());
+            $drawin_path = $drawing->getPath();
+            $extension    = pathinfo($drawing->getPath(), PATHINFO_EXTENSION);
+            switch ($splitCoords[0]) {
+                case 'A':
+                    $row_A[] = $drawing->getHashCode().'.png';
+                    $img_url = $pic_profile.$drawing->getHashCode().".{$extension}";
+                    break;
+                case 'B':
+                    $row_B[] = $drawing->getHashCode().'.png';
+                    $img_url = $pic_front.$drawing->getHashCode().".{$extension}";
+                    break;
+                case 'C':
+                    $row_C[] = $drawing->getHashCode().'.png';
+                    $img_url = $pic_back.$drawing->getHashCode().".{$extension}";
+                    break;
+            }
+
+            $img_path = public_path($img_url);
+            $contents = file_get_contents($drawin_path);
+            file_put_contents($img_path, $contents);
+
+            $coordinates = [ 
+                'row_A' => $row_A,
+                'row_B' => $row_B,
+                'row_C' => $row_C,
+            ];
+        } 
+
         $array = Excel::toArray(new Mercaditos, $data['file']);
         $i = 0;
-        $input = [];
+        $input = []; 
+
         foreach($array[0] as $a)
         {
             $i++; 
             if($i > 1)
             {
-                if ($a[1] != null) { 
-                    $colonia                = $a[0];
-                    $giro                   = $a[1];
-                    $contribuyente          = $a[2];
-                    $metros                 = $a[3];
-                    $costo                  = $a[4];
-                    $cuota                  = $a[5];
-                    $horario                = $a[6];
+                 
+                     
+                    $contribuyente          = $a[3];
+                    $giro                   = $a[4];
+                    $colonia                = $a[5];
+                    $metros                 = $a[6];
+                    $costo                  = $a[7];
+                    $cuota                  = $a[8];
+                    $horario                = $a[9];
 
-                    $lims_new_mercados      = new Mercaditos;
+                    $lims_new_mercados              = new Mercaditos;
+                    $input['pic_profile']           = $row_A[$i-2];
+                    $input['pic_credential']        = $row_B[$i-2];
+                    $input['pic_credential_back']   = $row_C[$i-2];
                     $input['giro']          = ($giro) ? $giro : 'INDEFINIDO';
                     $input['contribuyente'] = ($contribuyente) ? $contribuyente : 'INDEFINIDO';
                     $input['metros']        = ($metros) ? $metros : 0;
@@ -254,28 +302,33 @@ class MercadosController extends Controller
                     $input['colonies_id']   = 0;
                     $input['status']        = 0;
 
-                    // Validamos que no exista este contribuyente
-                    $chkName = Mercaditos::where('contribuyente',$contribuyente)->first();
-                    if (!$chkName) { // Si no existe registramos
-                        // Validamos el ID de la colonia
-                        $colonieId = Colonies::where('name',$colonia)->first();
-                        // Si existe la colonia obtenemos el ID y Registramos el mercado
-                        if ($colonieId) {
+                    
+                    // Validamos el ID de la colonia
+                    $colonieId = Colonies::where('name',$colonia)->first();
+                    // Si existe la colonia obtenemos el ID y Registramos el mercado
+                    if ($colonieId) {
+                        // Validamos que no exista este contribuyente en la misma colonia
+                        $chkName = Mercaditos::where('contribuyente',$contribuyente)->where('colonies_id', $colonieId->id)->first();
+                        if (!$chkName) { // Si no existe registramos
                             $input['colonies_id'] = $colonieId->id;
-                            $lims_new_mercados->create($input);
+                            $user = $lims_new_mercados->create($input);
+                            // Generamos el QR
+                            $link_qr        = substr(md5($user->id),0,15);
+                            $codeQR         = base64_encode(QrCode::format('png')->size(200)->generate($link_qr));
+                            $user->qr_identy   = $codeQR;
+                            $user->save();
                         }
-                    }  
-                }
+                    }
             }
         }
-
-        // return response()->json([ 
-        //     'status' => true,
-        //     'data' => $input
-        // ]);
-
-		return Redirect::back()->with('message','Archivo subido con exito.');
+ 
+		return Redirect::redirect('/mercaditos')->with('message','Archivo subido con exito.');
 	}
+
+    public function export()
+    {
+        return Excel::download(new OferentExport, 'report.xlsx');
+    }
 
     /*
 	|---------------------------------------------

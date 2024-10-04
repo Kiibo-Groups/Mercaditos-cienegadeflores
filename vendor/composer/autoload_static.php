@@ -624,7 +624,10 @@ class ComposerStaticInit2e16e0e669b4714ed5e444cafae924d1
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Exports\\OferentExport' => __DIR__ . '/../..' . '/app/Exports/OferentExport.php',
         'App\\Exports\\OrderExport' => __DIR__ . '/../..' . '/app/Exports/OrderExport.php',
+        'App\\Exports\\OrderExportPerms' => __DIR__ . '/../..' . '/app/Exports/OrderExportPerms.php',
+        'App\\Exports\\UsersExportCaja' => __DIR__ . '/../..' . '/app/Exports/UsersExportCaja.php',
         'App\\Http\\Controllers\\Admin\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AdminController.php',
         'App\\Http\\Controllers\\Admin\\AppUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AppUserController.php',
         'App\\Http\\Controllers\\Admin\\BannerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/BannerController.php',
@@ -657,6 +660,7 @@ class ComposerStaticInit2e16e0e669b4714ed5e444cafae924d1
         'App\\Models\\Colonies' => __DIR__ . '/../..' . '/app/Models/Colonies.php',
         'App\\Models\\Mercaditos' => __DIR__ . '/../..' . '/app/Models/Mercaditos.php',
         'App\\Models\\OrdersMarket' => __DIR__ . '/../..' . '/app/Models/OrdersMarket.php',
+        'App\\Models\\Perms' => __DIR__ . '/../..' . '/app/Models/Perms.php',
         'App\\Models\\Settings' => __DIR__ . '/../..' . '/app/Models/Settings.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

@@ -8,7 +8,10 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Exports\\OferentExport' => $baseDir . '/app/Exports/OferentExport.php',
     'App\\Exports\\OrderExport' => $baseDir . '/app/Exports/OrderExport.php',
+    'App\\Exports\\OrderExportPerms' => $baseDir . '/app/Exports/OrderExportPerms.php',
+    'App\\Exports\\UsersExportCaja' => $baseDir . '/app/Exports/UsersExportCaja.php',
     'App\\Http\\Controllers\\Admin\\AdminController' => $baseDir . '/app/Http/Controllers/Admin/AdminController.php',
     'App\\Http\\Controllers\\Admin\\AppUserController' => $baseDir . '/app/Http/Controllers/Admin/AppUserController.php',
     'App\\Http\\Controllers\\Admin\\BannerController' => $baseDir . '/app/Http/Controllers/Admin/BannerController.php',
@@ -41,6 +44,7 @@ return array(
     'App\\Models\\Colonies' => $baseDir . '/app/Models/Colonies.php',
     'App\\Models\\Mercaditos' => $baseDir . '/app/Models/Mercaditos.php',
     'App\\Models\\OrdersMarket' => $baseDir . '/app/Models/OrdersMarket.php',
+    'App\\Models\\Perms' => $baseDir . '/app/Models/Perms.php',
     'App\\Models\\Settings' => $baseDir . '/app/Models/Settings.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

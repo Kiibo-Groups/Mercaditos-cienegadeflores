@@ -14,10 +14,22 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="import_lbl">
-                                    Seleccion el Archivo<br />
-                                    <small>(Recuerde ingresar los mismos campos en el orden correspondiente - Colonia, Giro, Contribuyente, Metros, Costo, Cuota, Horario)</small>
+                                    Seleccion el Archivo
                                 </label>
                                 <input type="file" id="import_lbl" class="form-control" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required="required">
+                                <span>
+                                    <small>(Recuerde ingresar los mismos campos en el orden correspondiente :
+                                        Fotografia de perfil,<br />
+                                        Fotografia de ine Frontal,<br />
+                                        Fotografia de ine Reverso,<br />
+                                        Contribuyente,<br/>
+                                        Giro,<br/>
+                                        Colonia,<br />
+                                        Metros,<br /> 
+                                        Costo,<br /> 
+                                        Cuota,<br />
+                                        Horario)</small>
+                                </span>
                             </div> 
                         </div>
                         <br />

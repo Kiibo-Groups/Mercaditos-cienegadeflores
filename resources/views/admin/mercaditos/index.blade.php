@@ -69,6 +69,11 @@
                         <a href="{{ route('ImportMercados') }}" type="button" class="btn btn-info waves-effect waves-light" style="float: right;">
                             <span class="btn-label"><i class="mdi mdi-file-excel"></i></span> &nbsp;Importar desde CSV
                         </a>
+                        {{-- <p class="text-muted font-14 mb-3" style="position: relative;height: 50px;">
+                            <a href="{{ route('ExportMercados') }}" type="button" class="btn btn-success waves-effect waves-light" style="float: right;">
+                                <span class="btn-label"><i class="mdi mdi-file-excel"></i></span>Exportar CSV
+                            </a>
+                        </p> --}}
                     </p>
 
                     <table id="responsive-datatable" class="table table-bordered table-bordered dt-responsive nowrap">
