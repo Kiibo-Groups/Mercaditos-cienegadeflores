@@ -322,7 +322,7 @@ class MercadosController extends Controller
             }
         }
  
-		return Redirect::redirect('/mercaditos')->with('message','Archivo subido con exito.');
+		return redirect('/mercaditos')->with('message','Archivo subido con exito.');
 	}
 
     public function export()
