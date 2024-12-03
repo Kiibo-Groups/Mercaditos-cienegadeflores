@@ -22,6 +22,7 @@
                     <table id="responsive-datatable" class="table dt-responsive nowrap">
                         <thead>
                             <tr> 
+                                <th>Fecha</th>
                                 <th>Usuario</th>
                                 <th>Colonia</th> 
                                 <th>Contribuyente</th>
@@ -35,6 +36,7 @@
                             @foreach ($data as $row)
                                 <tr>
                                     
+                                    <td>{{ $row['date'] }}</td>
                                     <td>
                                         {{ $row['user'] }}
                                     </td>
@@ -53,7 +55,6 @@
                                     <td>
                                         ${{ number_format($row['extras'],2) }}
                                     </td>  
-                                     
                                 </tr>
                             @endforeach
 

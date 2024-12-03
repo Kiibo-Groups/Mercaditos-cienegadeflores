@@ -29,7 +29,7 @@ class OrdersMarket extends Authenticatable
     
     public function getAll()
     {
-        $orders = OrdersMarket::OrderBy('id','desc')->get();
+        $orders = OrdersMarket::OrderBy('created_at','DESC')->get();
         $data   = [];
 
         foreach ($orders as $key) {
@@ -43,7 +43,8 @@ class OrdersMarket extends Authenticatable
                 'metros' => $key->metros,
                 'costo' => $key->costo,
                 'cuota' => $key->cuota,
-                'extras' => $key->extras
+                'extras' => $key->extras,
+                'date'   => $key->created_at->format('Y-m-d'),
             ];
         }
 

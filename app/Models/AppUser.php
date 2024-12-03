@@ -249,17 +249,30 @@ class AppUser extends Authenticatable
 
     public function CorteCaja($id)
     {
-        // $orders = OrdersMarket::where('app_user_id',$id)->get(); ->whereDate('created_at','LIKE','%'.date('m-d').'%')
-        $orders = OrdersMarket::where('app_user_id',$id)->select('colonie_id')->distinct('colonie_id')->orderBy('created_at', 'desc')->get();
-        $data   = [];
+        // $orders = OrdersMarket::where('app_user_id',$id)->whereDate('created_at','LIKE','%'.date('m-d').'%')->get();
+
+        // $orders = OrdersMarket::where('app_user_id',$id)
+        // ->select('colonie_id')
+        // ->distinct('colonie_id')
+        // ->orderBy('created_at', 'desc')->get();
+
+        $data   = []; 
         $user_info = AppUser::find($id)->name.' '.AppUser::find($id)->last_name;
         $total = 0;
         
         $subData = [];
 
-        foreach ($orders as $value) {
+             
+        $getDates = OrdersMarket::where('app_user_id',$id) 
+        ->selectRaw("distinct(DATE_FORMAT(created_at,'%Y-%m-%d')) as date")
+        ->selectRaw('colonie_id')
+        ->orderBy('created_at', 'desc')->get(); 
 
-            $getCols = OrdersMarket::where('app_user_id',$id)->where('colonie_id',$value->colonie_id)->get();
+        foreach ($getDates as $ft) {
+            $getCols = OrdersMarket::where('app_user_id',$id)
+                    ->where('colonie_id',$ft->colonie_id)
+                    ->where('created_at','LIKE','%'.$ft->date.'%')
+                    ->orderBy('created_at', 'desc')->get();
 
             foreach ($getCols as $key) {
                 $total += ($key->costo + $key->extras);
@@ -273,7 +286,7 @@ class AppUser extends Authenticatable
                     'cuota'  => $key->cuota,
                     'extras' => $key->extras,
                     'identifier' => $key->identifier,
-                    'fecha'  => $key->created_at->format('d/m/y')
+                    'fecha'  => $key->created_at->format('Y-m-d'),
                 ];
             }
 
@@ -284,9 +297,7 @@ class AppUser extends Authenticatable
 
             unset($subData);
             $total = 0;
-
         }
-
       
         return [
             'user_info' => $user_info,

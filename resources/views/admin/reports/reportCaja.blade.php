@@ -65,14 +65,14 @@
             <td style=""></td>   
         </tr>
         <tr>  
-            <td style="width: 50%;"></td>  
-            <td style="width: 350%;"></td>  
-            <td style=""></td> 
-            <td style=""></td> 
-            <td style=""></td> 
-            <td style=""></td>  
-            <td style=""></td>  
-            <td style="background: #000000;color:#FFFFFF;">total ${{ number_format($row['total'],2) }}</td>   
+            <td style="width: 50%;background: #039f1d;color:#FFFFFF;"></td>  
+            <td style="width: 350%;background: #039f1d;color:#FFFFFF;"></td>  
+            <td style="background: #039f1d;color:#FFFFFF;"></td> 
+            <td style="background: #039f1d;color:#FFFFFF;"></td> 
+            <td style="background: #039f1d;color:#FFFFFF;"></td> 
+            <td style="background: #039f1d;color:#FFFFFF;"></td>  
+            <td style="background: #039f1d;color:#FFFFFF;">Total:</td>  
+            <td style="background: #039f1d;color:#FFFFFF;">${{ number_format($row['total'],2) }}</td>   
         </tr>
          
     @endforeach   
