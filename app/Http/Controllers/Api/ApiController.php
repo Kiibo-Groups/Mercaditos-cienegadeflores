@@ -249,7 +249,7 @@ class ApiController extends Controller
 			$lims_data_markets = new Mercaditos;
 
 			$path = '/' . 'upload/users/';
-			$path_file;
+			$path_file = "";
 
 			if ($Request->has('pic_profile')) {
 				$imagenBase64 = $Request->input('pic_profile');
@@ -317,10 +317,10 @@ class ApiController extends Controller
 			$chk = OrdersMarket::where('app_user_id',$user_id)->where('market_id',$market_id)->OrderBy('created_at','DESC')->first();
 			if ($chk) {
 				// Calculamos los dias que han pasado
-				$days = Carbon::parse($chk->created_at)->diff(Carbon::now())->format('%d');
+				$days = Carbon::parse($chk->created_at)->diff(Carbon::now())->format('%H');
  
 				
-				if ($days > 1) {
+				if ($days > 12) {
 					$lims_data_orders = new OrdersMarket; 
 					$ticket = $lims_data_orders->create($input);	
 					return response()->json([
