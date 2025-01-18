@@ -103,7 +103,7 @@
                 </li>
                 <!-- Usuarios -->
 
-                <!-- Colonias -->
+                <!-- Mercados -->
                 <li>
                     <a href="#colonies" data-bs-toggle="collapse">
                         <i class="mdi mdi-book-marker-outline"></i>
@@ -121,9 +121,9 @@
                         </ul>
                     </div>
                 </li>
-                <!-- Colonias -->
+                <!-- Mercados -->
 
-                <!-- Carga de BD -->
+                <!-- Oferentes -->
                 <li>
                     <a href="#mercaditos" data-bs-toggle="collapse">
                         <i class="mdi mdi-store"></i>
@@ -141,7 +141,27 @@
                         </ul>
                     </div>
                 </li>
-                <!-- Carga de BD -->
+                <!-- Oferentes -->
+
+                <!-- Comercios -->
+                <li>
+                    <a href="#comercios" data-bs-toggle="collapse">
+                        <i class="mdi mdi-store"></i>
+                        <span> Comercios </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="comercios">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('bd_list_comerce') }}">Listado</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('comercios/create_commerce') }}">Agregar Elemento</a>
+                            </li> 
+                        </ul>
+                    </div>
+                </li>
+                <!-- Comercios -->
                
                 <!-- Reportes -->
                 <li>

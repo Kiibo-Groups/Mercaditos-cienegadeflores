@@ -79,7 +79,23 @@ Route::prefix(env('user'))->namespace('User')->group(static function() {
         Route::get('ImportMercados',[App\Http\Controllers\Admin\MercadosController::class, 'import'])->name('ImportMercados');
         Route::post('mercaditos/import',[App\Http\Controllers\Admin\MercadosController::class, '_import']);
         Route::get('ExportMercados',[App\Http\Controllers\Admin\MercadosController::class, 'export'])->name('ExportMercados');
-    
+        
+        /*
+        |------------------------------
+        |Comercios
+        |------------------------------
+        */
+        Route::get('comercios',[App\Http\Controllers\Admin\MercadosController::class, 'index_comercios'])->name('bd_list_comerce');
+        Route::get('comercios/create_commerce',[App\Http\Controllers\Admin\MercadosController::class, 'create_commerce']);
+        Route::post('comercios',[App\Http\Controllers\Admin\MercadosController::class, 'create_comercios']);
+        Route::get('comercios/{id}/edit_commerce',[App\Http\Controllers\Admin\MercadosController::class, 'edit_commerce']);
+        Route::PATCH('comercios/{id}',[App\Http\Controllers\Admin\MercadosController::class, '_edit_commerce']);
+        Route::get('comercios/delete_commerce/{id}',[App\Http\Controllers\Admin\MercadosController::class, 'delete_comercios']);
+        Route::get('comercios/status_commerce/{id}',[App\Http\Controllers\Admin\MercadosController::class, 'status_comercios']);
+        Route::get('ImportComercios',[App\Http\Controllers\Admin\MercadosController::class, 'import_commerce'])->name('ImportComercios');
+        Route::post('comercios/import',[App\Http\Controllers\Admin\MercadosController::class, '_import_commerce']);
+        Route::get('ExportMercados',[App\Http\Controllers\Admin\MercadosController::class, 'export'])->name('ExportMercados');
+
         /*
         |------------------------------
         |Reportes

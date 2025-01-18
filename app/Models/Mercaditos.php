@@ -25,6 +25,7 @@ class Mercaditos extends Authenticatable
         'costo',
         'cuota',
         'horario',
+        'type',
         'colonies_id',
         'status'
     ];

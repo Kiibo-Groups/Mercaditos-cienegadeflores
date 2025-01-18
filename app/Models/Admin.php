@@ -168,6 +168,7 @@ class Admin extends Authenticatable
 			'colonies'  	=> Colonies::count(),
 			'mercados'		=> Mercaditos::count(),
 			'lastPays'		=> $this->last_Pays(),
+			'last_Pays_Commerce' => $this->last_Pays_Commerce(),
 			'cobroHoy'      => OrdersMarket::whereDate('created_at','LIKE','%'.date('m-d').'%')->sum('costo'),
 			'visiteM'      => OrdersMarket::whereDate('created_at','LIKE','%'.date('m-d').'%')->count()
 		];
@@ -247,17 +248,51 @@ class Admin extends Authenticatable
 		$orders = OrdersMarket::OrderBy('id','DESC')->limit(5)->get();
 
 		foreach ($orders as $key) {
-			$data[] = [
-				'id' => $key->id,
-                'user' => AppUser::find($key->app_user_id)->name.' '.AppUser::find($key->app_user_id)->last_name,
-                'colonie' => Colonies::find($key->colonie_id)->name, 
-                'contribuyente' => $key->contribuyente,
-                'giro' => $key->giro,
-                'metros' => $key->metros,
-                'costo' => $key->costo,
-                'cuota' => $key->cuota,
-                'extras' => $key->extras
-			];
+
+			$chkMerados = Mercaditos::find($key->market_id);
+
+			if (isset($chkMerados->id) && $chkMerados->type == 0) {
+				
+				$data[] = [
+					'id' => $key->id,
+					'user' => AppUser::find($key->app_user_id)->name.' '.AppUser::find($key->app_user_id)->last_name,
+					'colonie' => Colonies::find($key->colonie_id)->name, 
+					'contribuyente' => $key->contribuyente,
+					'giro' => $key->giro,
+					'metros' => $key->metros,
+					'costo' => $key->costo,
+					'cuota' => $key->cuota,
+					'extras' => $key->extras
+				];
+				
+			}
+		}
+
+		return $data;
+	}
+
+	public function last_Pays_Commerce()
+	{
+
+		$data = [];
+		$orders = OrdersMarket::OrderBy('id','DESC')->limit(5)->get();
+
+		foreach ($orders as $key) {
+			$chkMerados = Mercaditos::find($key->market_id);
+
+			if (isset($chkMerados->id) && $chkMerados->type == 1) {
+				$data[] = [
+					'id' => $key->id,
+					'user' => AppUser::find($key->app_user_id)->name.' '.AppUser::find($key->app_user_id)->last_name,
+					'colonie' => Colonies::find($key->colonie_id)->name, 
+					'contribuyente' => $key->contribuyente,
+					'giro' => $key->giro,
+					'metros' => $key->metros,
+					'costo' => $key->costo,
+					'cuota' => $key->cuota,
+					'extras' => $key->extras
+				];
+			}
 		}
 
 		return $data;

@@ -84,10 +84,10 @@
     <!-- end row -->
 
     <div class="row">
-        <div class="col-xl-5">
+        <div class="col-xl-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title mb-3">Ultimos cobros</h4>
+                    <h4 class="header-title mb-3">Ultimos cobros de Oferentes</h4>
                     @if(count($overview['lastPays']) > 0)
                     <div class="inbox-widget">
                         @foreach ($overview['lastPays'] as $lp)
@@ -108,38 +108,62 @@
             </div>
         </div><!-- end col -->
 
-        <div class="col-xl-7">
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="header-title mt-0 mb-4">Monto cobrado el dia de hoy</h4>
-    
-                        <div class="widget-chart-1">
-                            <div class="widget-detail-1 text-end">
-                                <h2 class="fw-normal pt-2 mb-1"> ${{ number_format($overview['cobroHoy']) }} </h2>
-                                <p class="text-muted mb-1">Fecha: {{ date('M-D') }}</p>
-                            </div>
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mb-3">Ultimos cobros de Comercios</h4>
+                    @if(count($overview['last_Pays_Commerce']) > 0)
+                    <div class="inbox-widget">
+                        @foreach ($overview['last_Pays_Commerce'] as $lp)
+                        <div class="inbox-item">
+                            <a href="#">
+                                <h5 class="inbox-item-author mt-0 mb-1">{{$lp['user']}}</h5>
+                                <p class="inbox-item-text">{{ $lp['colonie'] }} / {{ $lp['contribuyente'] }}</p>
+                                <p class="inbox-item-date">
+                                    Costo: ${{ number_format($lp['costo'], 2) }} / 
+                                    Cuota: ${{ number_format($lp['cuota'], 2) }}
+                                </p>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div><!-- end col -->
+    </div>
+
+    <div class="row"> 
+        <div class="col-xl-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-4">Monto cobrado el dia de hoy</h4>
+
+                    <div class="widget-chart-1">
+                        <div class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1"> ${{ number_format($overview['cobroHoy']) }} </h2>
+                            <p class="text-muted mb-1">Fecha: {{ date('M-D') }}</p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div><!-- end col -->
+
+        <div class="col-xl-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title mt-0 mb-4">Cantidad de Mercados visitados</h4>
+
+                    <div class="widget-chart-1">
+                            
+                        <div class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $overview['visiteM'] }} </h2>
+                            <p class="text-muted mb-1">Fecha: {{ date('M-D') }}</p>
                         </div> 
                     </div>
                 </div>
-            </div><!-- end col -->
-    
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="header-title mt-0 mb-4">Cantidad de Mercados visitados</h4>
-    
-                        <div class="widget-chart-1">
-                                
-                            <div class="widget-detail-1 text-end">
-                                <h2 class="fw-normal pt-2 mb-1"> {{ $overview['visiteM'] }} </h2>
-                                <p class="text-muted mb-1">Fecha: {{ date('M-D') }}</p>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-            </div><!-- end col --> 
-        </div>
+            </div>
+        </div><!-- end col -->  
     </div>
 
     <div class="row">

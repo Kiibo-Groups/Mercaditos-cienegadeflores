@@ -318,9 +318,8 @@ class ApiController extends Controller
 			if ($chk) {
 				// Calculamos los dias que han pasado
 				$days = Carbon::parse($chk->created_at)->diff(Carbon::now())->format('%H');
- 
-				
-				if ($days > 12) {
+
+				if ($days >= 8) {
 					$lims_data_orders = new OrdersMarket; 
 					$ticket = $lims_data_orders->create($input);	
 					return response()->json([
@@ -359,8 +358,8 @@ class ApiController extends Controller
 				$chk = OrdersMarket::where('app_user_id',$user_id)->where('market_id',$market_id)->OrderBy('created_at','DESC')->first();
 				if ($chk) {
 					// Calculamos los dias que han pasado
-					$days = Carbon::parse($chk->created_at)->diff(Carbon::now())->format('%d');
-					if ($days > 1) {
+					$days = Carbon::parse($chk->created_at)->diff(Carbon::now())->format('%H');
+					if ($days >= 8) {
 						$lims_data_orders = new OrdersMarket; 
 						$ticket = $lims_data_orders->create($input);	
 						$data[] = $ticket; 
